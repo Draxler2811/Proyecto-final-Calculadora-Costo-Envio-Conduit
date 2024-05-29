@@ -200,6 +200,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "mysql1",
+      "rootUri": "file:///C:/Users/ol196/AppData/Local/Pub/Cache/hosted/pub.dev/mysql1-0.19.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "node_preamble",
       "rootUri": "file:///C:/Users/ol196/AppData/Local/Pub/Cache/hosted/pub.dev/node_preamble-2.0.2",
       "packageUri": "lib/",
@@ -416,7 +422,7 @@
       "languageVersion": "3.0"
     }
   ],
-  "generated": "2024-05-28T21:22:14.572042Z",
+  "generated": "2024-05-29T01:40:39.080730Z",
   "generator": "pub",
   "generatorVersion": "3.2.6"
 }

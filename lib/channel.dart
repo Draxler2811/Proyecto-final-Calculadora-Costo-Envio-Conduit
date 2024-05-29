@@ -1,37 +1,32 @@
 import 'package:calculadora_a_costo_envio_conduit/calculadora_a_costo_envio_conduit.dart';
 
-/// This type initializes an application.
-///
-/// Override methods in this class to set up routes and initialize services like
-/// database connections. See http://conduit.io/docs/http/channel/.
+import 'controllers/paquete_controller.dart';
+import 'envio_api.dart';
+
 class CalculadoraACostoEnvioConduitChannel extends ApplicationChannel {
-  /// Initialize services in this method.
-  ///
-  /// Implement this method to initialize services, read values from [options]
-  /// and any other initialization required before constructing [entryPoint].
-  ///
-  /// This method is invoked prior to [entryPoint] being accessed.
+  late MySQLConnection connection;
+
   @override
   Future prepare() async {
     logger.onRecord.listen(
         (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
+    
+    connection = MySQLConnection();
+    await connection.connect(
+      host: 'localhost',
+      port: 3306,
+      user: 'root',
+      password: '1234',
+      db: 'envio_calculadora',
+    );
   }
 
-  /// Construct the request channel.
-  ///
-  /// Return an instance of some [Controller] that will be the initial receiver
-  /// of all [Request]s.
-  ///
-  /// This method is invoked after [prepare].
   @override
   Controller get entryPoint {
     final router = Router();
 
-    // Prefer to use `link` instead of `linkFunction`.
-    // See: https://conduit.io/docs/http/request_controller/
-    router.route("/example").linkFunction((request) async {
-      return Response.ok({"key": "value"});
-    });
+    // Vincula la ruta "/paquetes" al controlador de paquetes
+    router.route("/paquetes").link(() => PaquetesController(connection));
 
     return router;
   }
