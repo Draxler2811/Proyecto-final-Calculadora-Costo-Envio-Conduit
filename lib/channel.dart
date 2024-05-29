@@ -8,9 +8,8 @@ class CalculadoraACostoEnvioConduitChannel extends ApplicationChannel {
 
   @override
   Future prepare() async {
-    logger.onRecord.listen(
-        (rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
-    
+    logger.onRecord.listen((rec) => print("$rec ${rec.error ?? ""} ${rec.stackTrace ?? ""}"));
+
     connection = MySQLConnection();
     await connection.connect(
       host: 'localhost',
@@ -26,7 +25,7 @@ class CalculadoraACostoEnvioConduitChannel extends ApplicationChannel {
     final router = Router();
 
     // Vincula la ruta "/paquetes" al controlador de paquetes
-    router.route("/paquetes").link(() => PaquetesController(connection));
+    router.route("/paquetes/[:id]").link(() => PaquetesController(connection));
 
     return router;
   }
